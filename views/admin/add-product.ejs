@@ -1,0 +1,26 @@
+<%- include('../partials/head', {title:PageTitle})%>
+<%- include('../partials/nav')%>
+
+<form action=""method = "post" >
+    <div class="form-group ">
+        <label>Enter name :  </label>
+        <input  class="form-control" type="text" name="name">
+    </div>
+    <div class="form-group">
+        <label>Enter type :  </label>
+        <input  class="form-control" type="text" name="type">
+    </div>
+    <div class="form-group">
+        <label>Enter price :  </label>
+        <input  class="form-control" type="number" name="price">
+    </div>
+    <div class="form-group">
+        <label>Enter description :  </label>
+        <input  class="form-control" type="text" name="description">
+    </div>
+    <div class="form-group">
+        <input class="btn btn-primary" type="submit">
+    </div>
+</form>
+
+<%- include('../partials/footer')%>

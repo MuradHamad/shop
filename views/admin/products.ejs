@@ -1,0 +1,27 @@
+<%- include('../partials/head') %>
+<%- include('../partials/nav')%>
+
+<table class="table-striped table-bordered table-hover container-fluid">
+    <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Price</th>
+        <th>description</th>
+    </tr>
+<% for(p of prods){%>
+    <tr>
+        <td><%= p.name%></td>
+        <td><%= p.type%></td>
+        <td><%= p.price%></td>
+        <td><%= p.description%></td>
+        <td><a type="submit" class="btn btn-success" href="/admin/edit-product/<%= p.id %>">edit</a></td>
+        <td><form action="/admin/delete-product" method="post">
+            <input type="hidden" name="id"value="<%=p.id%>">
+            <button type="submit" class="btn btn-danger">delete</button>
+        </form>
+        </td>
+    </tr>
+    <%}%>
+    
+</table>
+<%- include('../partials/footer')%>

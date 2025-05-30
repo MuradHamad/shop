@@ -1,0 +1,25 @@
+<%- include('../partials/head', {title:PageTitle})%>
+<%- include('../partials/nav')%>
+
+<form action="" method="POST">
+    <div class="card m-3 text-center shadow border mx-auto" style="width: 400px;"><div class="cardbody">
+    <!-- <%if(invalid){%>
+    <p class="text-danger">Invalid Username or Password</p>
+    <%}%> -->   
+    <%if(msg){%>
+    <p class="text-danger"><%=msg%></p>
+    <%}%>
+    <div class="form-group">
+    <label for="username fw-bold">Username</label>
+    <input type="text" class="form-control" name="username" id="username">
+    </div>
+    <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" name="password" id="password">
+    </div>
+    </div> <div class="card-footer">
+    <button class="btn btn-outline-success m-3" type="submit">Login</button>
+    </div></div>
+</form>
+
+<%- include('../partials/footer')%>
