@@ -1,22 +1,30 @@
 <%- include('../partials/head', {title:PageTitle})%>
 <%- include('../partials/nav')%>
-
-<form action=""method = "post" >
+<%if(error) {%>
+<div class="alert alert-danger">
+    <ul>
+        <%error.error.forEach(e=>{ %>
+            <li><%=e%></li>
+        <%})%>
+    </ul>
+</div>
+<%}%>
+<form action="/admin/add-product"method = "post" >
     <div class="form-group ">
         <label>Enter name :  </label>
-        <input  class="form-control" type="text" name="name">
+        <input  class="form-control" type="text" name="name" value="<%=oldInput.name%>">
     </div>
     <div class="form-group">
         <label>Enter type :  </label>
-        <input  class="form-control" type="text" name="type">
+        <input  class="form-control" type="text" name="type" value="<%=oldInput.type%>">
     </div>
     <div class="form-group">
         <label>Enter price :  </label>
-        <input  class="form-control" type="number" name="price">
+        <input  class="form-control" type="number" name="price" value="<%=oldInput.price%>">
     </div>
     <div class="form-group">
         <label>Enter description :  </label>
-        <input  class="form-control" type="text" name="description">
+        <input  class="form-control" type="text" name="description" value="<%=oldInput.description%>">
     </div>
     <div class="form-group">
         <input class="btn btn-primary" type="submit">

@@ -1,7 +1,13 @@
 const product = require("../models/products");
 
 exports.getAddProduct= (req,res,next)=> {
-    res.render('../views/admin/add-product.ejs',{PageTitle: "Add product", isAuthenticated: req.session.isAuthenticated});
+    const error = req.flash('add-error')[0];
+    res.render('../views/admin/add-product.ejs', {
+        PageTitle: "Add product",
+        isAuthenticated: req.session.isAuthenticated,
+        error: error || null,
+        oldInput: error ? error.oldInput : {}
+    });
 };
 exports.postAddProduct= (req,res,next)=>{
     p = product({
