@@ -2,21 +2,16 @@
 <%- include('../partials/nav')%>
 
 
-    <div class="row">
+    <div class="row m-10">
     <% for(p of prods){%>
-        <div class="col-md-2 ">
-            <div class="card" style="width: 200px">
-                <img class="card-img-top" src="/images/computer.jpg" alt="Card image" />
-                <div class="card-body">
-                    <h4 class="card-title">
-                        <%= p.name%>
-                    </h4>
-                    <p class="card-text">
-                        <%= p.description%>
-                            <%= p.price%>
-                    </p>
-                    <a href="#" class="btn btn-primary">See Profile</a>
-                </div>
+
+
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="<%= p.image%>" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title"><%= p.name%></h5>
+              <p class="card-text"><%= p.description%></p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
         </div>
     <%}%>

@@ -10,11 +10,13 @@ exports.getLogin= (req,res,next)=> {
 exports.postLogin= (req,res,next)=>{
     const username = req.body.username;
     const password = req.body.password;
+    console.log(user);
     user.find({username:username,password:password}).then(
+        
         (u)=>{
             if(u.length!=0){
                 req.session.isAuthenticated = true;
-                req.session.isAdmin = u.isAdmin;
+                req.session.isAdmin = u[0].isAdmin;
                 return res.redirect('/admin/products');
 
             }
