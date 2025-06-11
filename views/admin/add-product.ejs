@@ -1,7 +1,7 @@
 <%- include('../partials/head', {title:PageTitle})%>
 <%- include('../partials/nav')%>
 <%if(error) {%>
-<div class="alert alert-danger">
+<div class="alert alert-danger mt-4 container">
     <ul>
         <%error.error.forEach(e=>{ %>
             <li><%=e%></li>
@@ -9,26 +9,40 @@
     </ul>
 </div>
 <%}%>
-<form action="/admin/add-product"method = "post" >
-    <div class="form-group ">
-        <label>Enter name :  </label>
-        <input  class="form-control" type="text" name="name" value="<%=oldInput.name%>">
+<div class="container mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <h3 class="card-title mb-4 text-center">Add Product</h3>
+          <form action="/admin/add-product" method="post">
+            <div class="form-group mb-3">
+              <label>Enter name:</label>
+              <input class="form-control" type="text" name="name" value="<%=oldInput.name%>">
+            </div>
+            <div class="form-group mb-3">
+              <label>Enter type:</label>
+              <input class="form-control" type="text" name="type" value="<%=oldInput.type%>">
+            </div>
+            <div class="form-group mb-3">
+              <label>Enter price:</label>
+              <input class="form-control" type="number" name="price" value="<%=oldInput.price%>">
+            </div>
+            <div class="form-group mb-3">
+              <label>Enter description:</label>
+              <input class="form-control" type="text" name="description" value="<%=oldInput.description%>">
+            </div>
+            <div class="form-group mb-4">
+              <label>Upload image:</label>
+              <input class="form-control" type="file" name="image" accept="image/*">
+            </div>
+            <div class="d-grid">
+              <input class="btn btn-primary" type="submit" value="Submit">
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-        <label>Enter type :  </label>
-        <input  class="form-control" type="text" name="type" value="<%=oldInput.type%>">
-    </div>
-    <div class="form-group">
-        <label>Enter price :  </label>
-        <input  class="form-control" type="number" name="price" value="<%=oldInput.price%>">
-    </div>
-    <div class="form-group">
-        <label>Enter description :  </label>
-        <input  class="form-control" type="text" name="description" value="<%=oldInput.description%>">
-    </div>
-    <div class="form-group">
-        <input class="btn btn-primary" type="submit">
-    </div>
-</form>
-
+  </div>
+</div>
 <%- include('../partials/footer')%>

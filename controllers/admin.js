@@ -14,7 +14,8 @@ exports.postAddProduct= (req,res,next)=>{
         name: req.body.name,
         price: req.body.price,
         type: req.body.type,
-        description: req.body.description
+        description: req.body.description,
+        image: req.body.image
     });
     p.save();
     res.redirect('/admin/products');
@@ -33,12 +34,13 @@ exports.postEditProduct= (req,res,next)=>{
     const type = req.body.type;
     const price = req.body.price;
     const description = req.body.description;
-
+    const image = `/images/${req.body.image}`;
     product.findById(id).then((p)=>{
         p.name = name;
         p.type = type;
         p.price = price ;
         p.description = description;
+        p.image = image;
         p.save().then((p)=>{
             res.redirect('/admin/products');
         });

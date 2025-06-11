@@ -1,25 +1,53 @@
-<%- include('../partials/head', {title:PageTitle})%>
-<%- include('../partials/nav')%>
+<%- include('../partials/head', {title: PageTitle}) %>
+<%- include('../partials/nav') %>
 
-<form action="" method="POST">
-    <div class="card m-3 text-center shadow border mx-auto" style="width: 400px;"><div class="cardbody">
-    <!-- <%if(invalid){%>
-    <p class="text-danger">Invalid Username or Password</p>
-    <%}%> -->   
-    <%if(msg){%>
-    <p class="text-danger"><%=msg%></p>
-    <%}%>
-    <div class="form-group">
-        <label for="username fw-bold">Username</label>
-        <input type="text" class="form-control" name="username" id="username">
+<div class="container min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="row w-100 justify-content-center">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+            <div class="card shadow-sm border border-secondary p-4">
+                <% if(msg && msg.length > 0) { %>
+                    <div class="alert alert-danger py-2" role="alert">
+                        <%= msg %>
+                    </div>
+                <% } %>
+                <form action="/auth/login" method="POST" class="needs-validation" novalidate>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" name="username" id="username" placeholder="Enter username" required minlength="3">
+                        <div class="invalid-feedback">
+                            Please enter a valid username (min 3 characters)
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Enter password" required minlength="6">
+                        <div class="invalid-feedback">
+                            Please enter a valid password (min 6 characters)
+                        </div>
+                    </div>
+                    <div class="d-grid">
+                        <button class="btn btn-primary" type="submit">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" class="form-control" name="password" id="password">
-    </div>
-    </div> <div class="card-footer">
-    <button class="btn btn-outline-success m-3" type="submit">Login</button>
-    </div></div>
-</form>
+</div>
 
-<%- include('../partials/footer')%>
+<script>
+(function () {
+    'use strict'
+    const forms = document.querySelectorAll('.needs-validation')
+    Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+        }, false)
+    })
+})()
+</script>
+
+<%- include('../partials/footer') %>

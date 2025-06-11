@@ -1,25 +1,40 @@
 <%- include('../partials/head', {title:PageTitle})%>
 <%- include('../partials/nav')%>
-<form action = "/admin/edit-product"method="post">
-        <input type="hidden" name="id" value="<%=product.id%>">
-        <div class="form-group ">
-            <label>Enter name :  </label>
-            <input  class="form-control" type="text" name="name" value="<%=product.name%>">
+<div class="container mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <h3 class="card-title mb-4 text-center">Edit Product</h3>
+          <form action="/admin/edit-product" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="<%=product.id%>">
+            <div class="form-group mb-3">
+              <label>Enter name:</label>
+              <input class="form-control" type="text" name="name" value="<%=product.name%>">
+            </div>
+            <div class="form-group mb-3">
+              <label>Enter type:</label>
+              <input class="form-control" type="text" name="type" value="<%=product.type%>">
+            </div>
+            <div class="form-group mb-3">
+              <label>Enter price:</label>
+              <input class="form-control" type="number" name="price" value="<%=product.price%>">
+            </div>
+            <div class="form-group mb-3">
+              <label>Enter description:</label>
+              <input class="form-control" type="text" name="description" value="<%=product.description%>">
+            </div>
+            <div class="form-group mb-4">
+              <label>Upload image:</label>
+              <input class="form-control" type="file" name="image" accept="image/*">
+            </div>
+            <div class="d-grid">
+              <input class="btn btn-primary" type="submit" value="Save">
+            </div>
+          </form>
         </div>
-        <div class="form-group">
-            <label>Enter type :  </label>
-            <input  class="form-control" type="text" name="type" value="<%=product.type%>">
-        </div>
-        <div class="form-group">
-            <label>Enter price :  </label>
-            <input  class="form-control" type="number" name="price" value="<%=product.price%>">
-        </div>
-        <div class="form-group">
-            <label>Enter description :  </label>
-            <input  class="form-control" type="text" name="description" value="<%=product.description%>">
-        </div>
-        <div class="form-group">
-            <input class="btn btn-primary" type="submit" value="save">
-        </div>
-    </form>
-    <%- include('../partials/footer')%>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('../partials/footer')%>

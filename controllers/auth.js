@@ -1,36 +1,65 @@
-const user = require("../models/user");
+const User = require("../models/user");
 
-
-exports.getLogin= (req,res,next)=> {
-    message = req.flash('msg');
-    res.render('auth/login',
-    {PageTitle:'Login',isAuthenticated:req.session.isAuthenticated,invalid:false,msg:message});
+exports.getLogin = (req, res, next) => {
+    const message = req.flash('msg');
+    res.render('auth/login', {
+        PageTitle: 'Login',
+        isAuthenticated: req.session.isAuthenticated,
+        invalid: false,
+        msg: message
+    });
 };
 
-exports.postLogin= (req,res,next)=>{
-    const username = req.body.username;
-    const password = req.body.password;
-    console.log(user);
-    user.find({username:username,password:password}).then(
-        
-        (u)=>{
-            if(u.length!=0){
-                req.session.isAuthenticated = true;
-                req.session.isAdmin = u[0].isAdmin;
-                return res.redirect('/admin/products');
+exports.postLogin = async (req, res, next) => {
+    try {
+        const { username, password } = req.body;
 
-            }
-            else{
-                req.flash('msg','Invalid username or password');
-                return res.redirect('/auth/login');
 
-            }
+        if (!username || !password) {
+            req.flash('msg', 'Please provide both username and password');
+            return res.redirect('/auth/login');
         }
-    );
 
+        // Find user by username and password (plain text)
+        const user = await User.findOne({ username, password });
+
+        if (!user) {
+            req.flash('msg', 'Invalid username or password');
+            return res.redirect('/auth/login');
+        }
+
+        req.session.isAuthenticated = true;
+        req.session.user = {
+            id: user._id,
+            username: user.username,
+            isAdmin: user.isAdmin
+        };
+
+        req.session.save(err => {
+            if (err) {
+                console.error("Session save error:", err);
+                req.flash('msg', 'Session error. Please try again.');
+                return res.redirect('/auth/login');
+            }
+            if (user.isAdmin) {
+                res.redirect('/admin/products');
+            } else {
+                res.redirect('/');
+            }
+        });
+    } catch (err) {
+        console.error("Login error:", err);
+        req.flash('msg', 'Server error. Please try again.');
+        res.redirect('/auth/login');
+    }
 };
-exports.getLogout= (req,res,next)=> {
-    req.session.destroy((err)=>{
+
+exports.getLogout = (req, res, next) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error("Logout error:", err);
+            return res.redirect('/');
+        }
         res.redirect('/auth/login');
     });
 };
