@@ -13,8 +13,8 @@ router.get('/orders',productController.getOrders);
 
 
 router.post('/products/:productId',productController.postProduct);
-router.post('/cart',productController.postCart);
 router.post('/cart-delete-item',productController.postCartDeleteItem);
 router.post('/create-order',productController.postOrder);
+
 
 module.exports = router;

@@ -5,6 +5,7 @@ exports.getAddProduct= (req,res,next)=> {
     res.render('../views/admin/add-product.ejs', {
         PageTitle: "Add product",
         isAuthenticated: req.session.isAuthenticated,
+        isAdmin: req.session.user ? req.session.user.isAdmin : false,
         error: error || null,
         oldInput: error ? error.oldInput : {}
     });
@@ -24,7 +25,7 @@ exports.getEditProduct= (req,res,next)=> {
     const id = req.params.ProductId;
     product.findById(id).then(
         (p)=>{
-            res.render('../views/admin/edit-product.ejs',{PageTitle:'edit',product:p, isAuthenticated: req.session.isAuthenticated});
+            res.render('../views/admin/edit-product.ejs',{PageTitle:'edit',product:p, isAuthenticated: req.session.isAuthenticated, isAdmin: req.session.user ? req.session.user.isAdmin : false});
         }
     )
 };
@@ -58,6 +59,6 @@ exports.postDeleteProduct= (req,res,next)=>{
 };
 exports.getProducts = (req,res,next)=> {
     product.find().then((products)=>{
-        res.render('../views/admin/products.ejs',{title:'veiw',prods:products, isAuthenticated: req.session.isAuthenticated});
+        res.render('../views/admin/products.ejs',{title:'veiw',prods:products, isAuthenticated: req.session.isAuthenticated, isAdmin: req.session.user ? req.session.user.isAdmin : false});
     });
 }; 

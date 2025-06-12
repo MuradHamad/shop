@@ -29,7 +29,7 @@
               <td><%= item.qty %></td>
               <td>$<%= subtotal %></td>
               <td>
-                <form action="/cart/remove" method="POST" class="d-inline">
+                <form action="/shop/cart-delete-item" method="POST" class="d-inline">
                   <input type="hidden" name="productId" value="<%= item.product._id %>">
                   <button type="submit" class="btn btn-danger btn-sm">Remove</button>
                 </form>
@@ -46,7 +46,7 @@
       </table>
     </div>
     <div class="text-end">
-      <a href="/checkout" class="btn btn-success btn-lg">Proceed to Checkout</a>
+      <a href="/shop/orders" class="btn btn-success btn-lg">Proceed to Checkout</a>
     </div>
   <% } else { %>
     <div class="alert alert-info text-center">Your cart is empty.</div>

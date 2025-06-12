@@ -6,7 +6,8 @@ exports.getLogin = (req, res, next) => {
         PageTitle: 'Login',
         isAuthenticated: req.session.isAuthenticated,
         invalid: false,
-        msg: message
+        msg: message,
+        isAdmin: req.session.isAdmin
     });
 };
 
@@ -44,7 +45,7 @@ exports.postLogin = async (req, res, next) => {
             if (user.isAdmin) {
                 res.redirect('/admin/products');
             } else {
-                res.redirect('/');
+                res.redirect('/shop');
             }
         });
     } catch (err) {
@@ -62,4 +63,35 @@ exports.getLogout = (req, res, next) => {
         }
         res.redirect('/auth/login');
     });
+};
+
+exports.getSignup = (req, res, next) => {
+    res.render('auth/signup', {
+        PageTitle: 'Sign Up',
+        isAuthenticated: req.session.isAuthenticated,
+        msg: req.flash('msg'),
+        isAdmin: req.session.user ? req.session.user.isAdmin : false
+    });
+};
+
+exports.postSignup = async (req, res, next) => {
+    const { username, password } = req.body;
+    if (!username || !password) {
+        req.flash('msg', 'Please provide both username and password');
+        return res.redirect('/auth/signup');
+    }
+    try {
+        const existingUser = await User.findOne({ username });
+        if (existingUser) {
+            req.flash('msg', 'Username already exists');
+            return res.redirect('/auth/signup');
+        }
+        const user = new User({ username, password, isAdmin: false });
+        await user.save();
+        req.flash('msg', 'Account created! Please log in.');
+        res.redirect('/auth/login');
+    } catch (err) {
+        req.flash('msg', 'Server error. Please try again.');
+        res.redirect('/auth/signup');
+    }
 };
