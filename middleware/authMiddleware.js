@@ -9,8 +9,8 @@ exports.isAuth = (req,res,next)=>{
 }
 
 exports.isAdmin = (req,res,next)=>{
-    console.log(req.session.isAdmin)
-    if(!req.session.isAdmin){
+    console.log(req.session.user.isAdmin)
+    if(!req.session.user.isAdmin){
         req.flash('msg','You are not admin');
         return res.redirect('/auth/login');
     }
